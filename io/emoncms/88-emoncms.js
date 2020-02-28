@@ -160,7 +160,7 @@ module.exports = function(RED) {
         if (this.baseurl.substring(0,5) === "https") { http = require("https"); }
         else { http = require("http"); }
         this.on("input", function(msg) {
-            this.url = this.baseurl + '/feed/value.json';
+            this.url = this.baseurl + '/feed/timevalue.json';
             this.url += '&apikey='+this.apikey;
             var feedid = this.feedid || msg.feedid;
             if (feedid !== "") {
