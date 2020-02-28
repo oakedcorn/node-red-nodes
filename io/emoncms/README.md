@@ -45,4 +45,4 @@ The flow will indicate if the node has successfully called the API.  This is not
 
 ### Emoncms In:
 
-Fetches last emoncms feed value, returns a numerical value.
+Fetches last emoncms feed value, returns a numerical value. Optionally, a JSON object can be returned containing the last timestamp and value.

@@ -79,11 +79,18 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Emoncms">
     </div>
+    <div class="form-row">
+        <label for="node-input-payloadtype"><i class="fa fa-tag"></i> Payload data</label>
+        <select id="node-input-payloadtype">
+            <option value="value">Value only</option>
+            <option value="timevalue">Timestamp and value in JSON object</option>
+        </select>
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="emoncms in">
     <p>Fetches data from emoncms.</p>
-    <p>The <code>msg.payload</code> contains last emoncms feed value
+    <p>The <code>msg.payload</code> either contains last emoncms feed value or a JSON object containing the last timestamp and value
 </script>
 
 <script type="text/javascript">
@@ -93,7 +100,8 @@
         defaults: {
             name: {value:"Emoncms"},
             emonServer: {type:"emoncms-server", required:true},
-            feedid: {value:""}
+            feedid: {value:""},
+            payloadtype: {value:"timevalue"}
         },
         inputs:1,
         outputs:1,
@@ -104,6 +112,11 @@
         },
         labelStyle: function() {
             return this.name?"node_label_italic":"";
+        },
+        oneditprepare: function() {
+            if (this.datatype === undefined) {
+                $("#node-input-payloadtype").val("timevalue");
+            }
         }
     });
 </script>

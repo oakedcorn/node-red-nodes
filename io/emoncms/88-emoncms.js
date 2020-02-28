@@ -155,12 +155,19 @@ module.exports = function(RED) {
         this.apikey = sc.credentials.apikey;
 
         this.feedid = n.feedid
+        this.payloadtype = n.payloadtype || "";
         var node = this;
         var http;
         if (this.baseurl.substring(0,5) === "https") { http = require("https"); }
         else { http = require("http"); }
         this.on("input", function(msg) {
-            this.url = this.baseurl + '/feed/timevalue.json';
+            if (this.payloadtype == "timevalue") {
+                this.url = this.baseurl + '/feed/timevalue.json';
+            } else if (this.payloadtype == "value") {
+                this.url = this.baseurl + '/feed/value.json';
+            } else {
+                this.url = this.baseurl + '/feed/value.json';
+            }
             this.url += '&apikey='+this.apikey;
             var feedid = this.feedid || msg.feedid;
             if (feedid !== "") {
